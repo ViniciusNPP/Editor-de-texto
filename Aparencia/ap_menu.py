@@ -1,3 +1,5 @@
+import os
+
 def MenuAparencia():
     print("===============================================")
     print("==============EDIÇÃO DE DOCUMENTO==============")
@@ -10,14 +12,20 @@ def MenuAparencia():
 
     match resposta:
         case "1":
-            return "1"
+            return resposta
         case "0":
             print("Saindo do programa...")
-            return "0"
+            return resposta
         case _:
             print("Opção inválida")
             return ""
 
-def PosExecucao():
+def PosExecucao(texto):
+    os.system("cls")
+    print("===============================================")
+    print(texto)
+    print("===============================================")
+    print("(Texto copiado para a sua área de transferência (Ctrl + C))")
+    
     print("1- Continuar          0- Sair          /- Voltar ao menu anterior")
     return input("==> ")
