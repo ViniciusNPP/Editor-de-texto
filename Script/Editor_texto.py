@@ -8,12 +8,12 @@ import Script.Operacoes_de_edicao.Exclusao as ex
 
 '''
 A FAZER
-1. SUBSTITUIR TEXTO USANDO COMANDOS REGEX
-    1.1. PERMITIR O USUÁRIO ESCREVER O COMANDO REGEX
-    1.2. LISTA DOS COMANDOS REGEX PARA O USUÁRIO VER
-2. EXCLUIR TEXTO
-3. EXCLUIR TEXTO USANDO REGEX
-4. FAZER SUBSTITUIÇÃO E EXCLUSÃO DE TEXTO EM ARQUIVO .TXT E .PDF
+1. SUBSTITUIR TEXTO USANDO COMANDOS REGEX [V]
+    1.1. PERMITIR O USUÁRIO ESCREVER O COMANDO REGEX [V]
+    1.2. LISTA DOS COMANDOS REGEX PARA O USUÁRIO VER [V]
+2. EXCLUIR TEXTO [V]
+3. EXCLUIR TEXTO USANDO REGEX [V]
+4. FAZER SUBSTITUIÇÃO E EXCLUSÃO DE TEXTO EM ARQUIVO .TXT E .PDF [X]
 '''
 
 def EditarTexto(texto):
@@ -32,6 +32,8 @@ def EditarTexto(texto):
                     return sub.SubstituirNormal(texto)
                 elif opcao == "2":
                     return sub.SubstituirSequencia(texto)
+                elif opcao == "3":
+                    return sub.SubstituirRegex(texto)
                 break
             if opcao == "0":
                 exit()
@@ -46,6 +48,8 @@ def EditarTexto(texto):
                     return ex.ExcluirNormal(texto)
                 elif opcao == "2":
                     return ex.ExcluirSequencia(texto)
+                elif opcao == "3":
+                    return ex.ExcluirRegex(texto)
                 break
             
             if opcao == "0":

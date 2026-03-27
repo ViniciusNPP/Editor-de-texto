@@ -34,3 +34,11 @@ def SubstituirSequencia(texto):
     resultado = padrao.sub(lambda x: dicionario_sub[x.group(0)], texto)
     
     return resultado
+
+def SubstituirRegex(texto):
+    proc, subst = ap_sub.AparenciaSubRegex()
+    
+    padrao = re.compile(proc)
+    resultado = padrao.sub(subst, texto)
+    
+    return resultado
