@@ -47,13 +47,12 @@ def AparenciaSubSequencia():
     print("O que irá substituir o texto digitado acima?")
     print("Se deseja substituir toda a sequência por apenas uma coisa, escreva normalmente")
     print("Senão utilize vírgula, como foi feito anteriormente, para separar as palavras")
-    print("Exemplo: '==> ',', 10, |'")
+    print("Exemplo: '==> ,, 10, |'")
     print("IMPORTANTE:")
-    print("1. É PRECISO DAR ESPAÇO DEPOIS DÁ VÍRGULA, SENÃO O PROGRAMA NÃO VAI ENCONTRAR")
-    print("2. SE A QUANTIDADE DE PALAVRAS PARA SUBSTITUIR FOR MENOR QUE AS PROCURADAS, AS ÚLTIMAS PALAVRAS PROCURADAS SERÃO SUBSTITUIDAS PELAS AS ÚLTIMAS PALAVRAS PARA SUBSTITUIR")
+    print("É PRECISO DAR ESPAÇO DEPOIS DÁ VÍRGULA, SENÃO O PROGRAMA NÃO VAI ENCONTRAR")
     subst = input("==> ")
     
-    return proc, subst
+    return proc.split(", "), subst.split(", ")
 
 def AparenciaSubRegex():
     os.system("cls")
@@ -66,17 +65,24 @@ def AparenciaSubRegex():
     
     if proc == "'/3'":
         menu.HelpRegex()
+        print("Texto a ser procurado")
         proc = input("==> ")
     
     os.system("cls")
     print("Regex a ser usado: ", proc)
     print("===============================================")
     print("O que irá substituir o texto digitado acima?")
+    print("Exemplo: '==> amor , 3")
+    print("O programa irá substituir por amor e 3 respectivamente os padrões digitados anteriormente")
+    print("IMPORTANTE: PARA ESCREVER MAIS DE UMA SUBSTITUIÇÃO É PRECISO USAR A VIRGULA DESSA MANEIRA: ' , ' (ESPAÇO VIRGULA ESPAÇO)")
     print("Escreva '/3' para mostrar o guia de comandos regex")
     subst = input("==> ")
     
     if subst == "'/3'":
         menu.HelpRegex()
+        print("Regex a ser usado: ", proc)
+        print("===============================================")
+        print("O que irá substituir o texto digitado acima?")
         subst = input("==> ")
     
-    return proc, subst
+    return proc.split(" , "), subst.split(" , ")

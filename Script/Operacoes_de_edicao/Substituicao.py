@@ -1,5 +1,6 @@
 import re
 import os
+import time
 import Aparencia.ap_substituir as ap_sub
 
 def SubstituirNormal(texto):
@@ -15,30 +16,30 @@ def SubstituirSequencia(texto):
     proc, subst = ap_sub.AparenciaSubSequencia()
     
     #Separação dos termos a ser procurados em um dicionário
-    dicionario_sub = dict.fromkeys(proc.split(", "), "")
-    
-    #Atribuição dos valores as chaves do dicionário
-    subst = subst.split(", ")
-    tamanho_subst = len(subst)
-    j = 0
-    
-    for i in dicionario_sub:
-        if j < tamanho_subst:
-            dicionario_sub[i] = subst[j]
-            j += 1
-        else:
-            dicionario_sub[i] = subst[-1]
+    dicionario_sub = {
+        proc[i]: subst[i] if i < len(subst) else subst[-1]
+        for i in range(len(proc))
+    }
 
     #Substituindo no texto as chaves do dicionário pelos seus valores
     padrao = re.compile("|".join(re.escape(k) for k in dicionario_sub.keys()))
-    resultado = padrao.sub(lambda x: dicionario_sub[x.group(0)], texto)
-    
-    return resultado
+    return padrao.sub(lambda x: dicionario_sub[x.group(0)], texto)
 
 def SubstituirRegex(texto):
     proc, subst = ap_sub.AparenciaSubRegex()
     
-    padrao = re.compile(proc)
-    resultado = padrao.sub(subst, texto)
+    #Criação do dicionário para armazenar os grupos e seus valores
+    dicionario_sub = {
+        f"g{i}": (subst[i] if i < len(subst) else subst[-1]) #Cria a chave com o nome do grupo e atribui o valor correspondente.
+        for i in range(len(proc))
+    }
     
-    return resultado
+    #Função para indiciar qual chave/ grupo foi achado no texto e retornar o valor correspondente
+    def SubstituirRegexFunc(match):
+        grupo = match.lastgroup
+        return dicionario_sub[grupo]
+    
+    #Substituição das chaves pelos seus valores
+    padrao = re.compile("|".join(f"(?P<g{i}>{r})" for i, r in enumerate(proc)))
+    return padrao.sub(SubstituirRegexFunc, texto)
+    
